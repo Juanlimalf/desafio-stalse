@@ -1,0 +1,30 @@
+target-version = "py314"
+line-length = 150
+exclude = [".venv/"]
+
+
+[lint]
+fixable = ["ALL"]
+
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort (ordenação de imports)
+    "N",   # pep8-naming (nomenclatura de variáveis)
+    "UP",  # pyupgrade (atualizações de sintaxe)
+    "B",   # flake8-bugbear (erros comuns)
+    "C4",  # flake8-comprehensions (uso eficiente de compreensões)
+    "SIM", # flake8-simplify (simplificações de código)
+    "RUF", # regras específicas do Ruff (otimizações gerais)
+    "PT",  # flake8-pytest-style (estilo de testes)
+    "Q",   # flake8-quotes (estilo de aspas)
+    "RET", # flake8-return (detalhes de retornos)
+    "PIE", # flake8-pie (boas práticas)
+    "T20", # flake8-print (detecta prints esquecidos)
+    "S",   # flake8-bandit (verificações de segurança)
+    "ANN", # flake8-annotations (anotações de tipo)
+]
+
+[lint.per-file-ignores]
+"tests/**" = ["S101"]

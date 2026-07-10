@@ -1,0 +1,242 @@
+[
+  {
+    "created_at": "2026-06-01T08:12:34Z",
+    "customer_name": "Maria Oliveira",
+    "channel": "whatsapp",
+    "subject": "Pedido não chegou no prazo",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-02T09:45:11Z",
+    "customer_name": "João Pereira",
+    "channel": "email",
+    "subject": "Solicitação de segunda via de nota fiscal",
+    "status": "closed",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-02T14:20:03Z",
+    "customer_name": "Ana Souza",
+    "channel": "chat",
+    "subject": "Produto recebido com defeito",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-03T10:05:47Z",
+    "customer_name": "Carlos Santos",
+    "channel": "telefone",
+    "subject": "Dúvida sobre forma de pagamento",
+    "status": "closed",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-03T16:32:19Z",
+    "customer_name": "Fernanda Lima",
+    "channel": "instagram",
+    "subject": "Reclamação sobre atendimento na loja",
+    "status": "opened",
+    "priority": "medium"
+  },
+  {
+    "created_at": "2026-06-04T11:15:56Z",
+    "customer_name": "Ricardo Alves",
+    "channel": "whatsapp",
+    "subject": "Cancelamento de pedido",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-04T13:47:22Z",
+    "customer_name": "Juliana Costa",
+    "channel": "email",
+    "subject": "Troca de produto por tamanho errado",
+    "status": "opened",
+    "priority": "medium"
+  },
+  {
+    "created_at": "2026-06-05T08:58:40Z",
+    "customer_name": "Pedro Rodrigues",
+    "channel": "chat",
+    "subject": "Erro ao aplicar cupom de desconto",
+    "status": "closed",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-05T15:22:31Z",
+    "customer_name": "Beatriz Martins",
+    "channel": "telefone",
+    "subject": "Solicitação de reembolso",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-06T09:10:05Z",
+    "customer_name": "Lucas Ferreira",
+    "channel": "whatsapp",
+    "subject": "Produto fora de estoque",
+    "status": "closed",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-06T17:44:12Z",
+    "customer_name": "Camila Barbosa",
+    "channel": "instagram",
+    "subject": "Dúvida sobre programa de fidelidade",
+    "status": "opened",
+    "priority": "medium"
+  },
+  {
+    "created_at": "2026-06-07T10:33:27Z",
+    "customer_name": "Rafael Gomes",
+    "channel": "email",
+    "subject": "Cobrança duplicada no cartão",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-07T14:05:59Z",
+    "customer_name": "Larissa Rocha",
+    "channel": "chat",
+    "subject": "Alteração de endereço de entrega",
+    "status": "closed",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-08T08:21:44Z",
+    "customer_name": "Bruno Carvalho",
+    "channel": "telefone",
+    "subject": "Produto não corresponde ao anunciado",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-08T12:50:36Z",
+    "customer_name": "Patrícia Nascimento",
+    "channel": "whatsapp",
+    "subject": "Prazo de entrega expirado",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-09T09:37:18Z",
+    "customer_name": "Diego Cardoso",
+    "channel": "email",
+    "subject": "Solicitação de nota fiscal para empresa",
+    "status": "opened",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-09T16:12:53Z",
+    "customer_name": "Amanda Ribeiro",
+    "channel": "instagram",
+    "subject": "Elogio ao atendimento recebido",
+    "status": "opened",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-10T11:29:07Z",
+    "customer_name": "Thiago Araújo",
+    "channel": "chat",
+    "subject": "Problema ao finalizar compra no site",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-10T18:03:42Z",
+    "customer_name": "Vanessa Dias",
+    "channel": "telefone",
+    "subject": "Dúvida sobre política de trocas",
+    "status": "opened",
+    "priority": "medium"
+  },
+  {
+    "created_at": "2026-06-11T07:55:29Z",
+    "customer_name": "Gustavo Melo",
+    "channel": "whatsapp",
+    "subject": "Pedido cancelado sem aviso",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-11T13:18:51Z",
+    "customer_name": "Renata Teixeira",
+    "channel": "email",
+    "subject": "Erro no cadastro de conta",
+    "status": "opened",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-12T10:41:04Z",
+    "customer_name": "Marcelo Pinto",
+    "channel": "chat",
+    "subject": "Solicitação de rastreamento de pedido",
+    "status": "opened",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-12T15:26:38Z",
+    "customer_name": "Isabela Correia",
+    "channel": "instagram",
+    "subject": "Reclamação sobre embalagem danificada",
+    "status": "opened",
+    "priority": "medium"
+  },
+  {
+    "created_at": "2026-06-13T09:03:15Z",
+    "customer_name": "Felipe Moreira",
+    "channel": "telefone",
+    "subject": "Dúvida sobre garantia do produto",
+    "status": "opened",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-13T14:49:02Z",
+    "customer_name": "Débora Cunha",
+    "channel": "whatsapp",
+    "subject": "Solicitação de cancelamento de assinatura",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-14T08:16:47Z",
+    "customer_name": "Vinícius Farias",
+    "channel": "email",
+    "subject": "Produto entregue no endereço errado",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-14T12:38:23Z",
+    "customer_name": "Tatiane Monteiro",
+    "channel": "chat",
+    "subject": "Dúvida sobre parcelamento",
+    "status": "opened",
+    "priority": "low"
+  },
+  {
+    "created_at": "2026-06-15T10:52:36Z",
+    "customer_name": "Eduardo Batista",
+    "channel": "instagram",
+    "subject": "Solicitação de suporte técnico",
+    "status": "opened",
+    "priority": "medium"
+  },
+  {
+    "created_at": "2026-06-15T17:09:14Z",
+    "customer_name": "Priscila Nunes",
+    "channel": "telefone",
+    "subject": "Reclamação sobre atraso na resposta",
+    "status": "opened",
+    "priority": "high"
+  },
+  {
+    "created_at": "2026-06-16T11:44:58Z",
+    "customer_name": "Rodrigo Azevedo",
+    "channel": "whatsapp",
+    "subject": "Dúvida sobre disponibilidade de estoque",
+    "status": "opened",
+    "priority": "medium"
+  }
+]
