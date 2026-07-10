@@ -12,7 +12,7 @@
     "customer_name": "João Pereira",
     "channel": "email",
     "subject": "Solicitação de segunda via de nota fiscal",
-    "status": "closed",
+    "status": "opened",
     "priority": "low"
   },
   {
@@ -28,7 +28,7 @@
     "customer_name": "Carlos Santos",
     "channel": "telefone",
     "subject": "Dúvida sobre forma de pagamento",
-    "status": "closed",
+    "status": "opened",
     "priority": "low"
   },
   {
@@ -60,7 +60,7 @@
     "customer_name": "Pedro Rodrigues",
     "channel": "chat",
     "subject": "Erro ao aplicar cupom de desconto",
-    "status": "closed",
+    "status": "opened",
     "priority": "low"
   },
   {
@@ -76,7 +76,7 @@
     "customer_name": "Lucas Ferreira",
     "channel": "whatsapp",
     "subject": "Produto fora de estoque",
-    "status": "closed",
+    "status": "opened",
     "priority": "low"
   },
   {
@@ -100,7 +100,7 @@
     "customer_name": "Larissa Rocha",
     "channel": "chat",
     "subject": "Alteração de endereço de entrega",
-    "status": "closed",
+    "status": "opened",
     "priority": "low"
   },
   {
