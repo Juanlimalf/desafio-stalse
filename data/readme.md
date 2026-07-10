@@ -6,12 +6,12 @@ Fonte do dataset: https://www.kaggle.com/datasets/uditjain13/nvidia-gpu-sales-sy
 
 ## Stack
 
-- Python 3.14
+- Python 3.13
 - pandas — leitura e agregação do CSV
 
 ## Pré-requisitos
 
-- Python 3.14 instalado (ver [`.python-version`](.python-version));
+- Python 3.13 instalado (ver [`.python-version`](.python-version));
 - O arquivo bruto já está versionado em [`raw/nvidia_gpu_sales_synthetic_2026.csv`](raw/nvidia_gpu_sales_synthetic_2026.csv) (7000 registros de vendas).
 
 ## Como executar
