@@ -1,5 +1,18 @@
 # Desafio Stalse
 
+## Sobre esse desafio
+
+Esse repositório é a minha solução para o desafio técnico da Stalse, organizada em 4 fluxos simples:
+
+1. **Dados** → pandas transforma um dataset do Kaggle em métricas agregadas.
+2. **Backend** → expõe essas métricas e gerencia tickets de atendimento.
+3. **Notificação** → ao fechar/priorizar um ticket, um webhook aciona um workflow no n8n.
+4. **Frontend** → consome a API do backend.
+
+Para as métricas, escolhi o dataset [NVIDIA GPU Sales (Synthetic 2026)](https://www.kaggle.com/datasets/uditjain13/nvidia-gpu-sales-synthetic-2026), baixei o CSV bruto e o transformei em um JSON de métricas agregadas (receita por família de GPU, região, canal de venda, segmento de cliente, tendência mensal etc.). Esse JSON é lido pelo [backend](backend/README.md), que disponibiliza os dados na rota `GET /metrics/` e também expõe as rotas de gerenciamento de tickets — ao fechar ou priorizar um ticket, ele dispara um webhook para um workflow no [n8n](n8n/README.md), que roteia a notificação por canal de atendimento. O [frontend](frontend/README.md) (Next.js + Flowbite React) fecha o ciclo, consumindo essa mesma API — a ideia é que ele seja a interface para visualizar tickets e métricas, mas ainda está no template inicial, sem essas telas implementadas.
+
+
+
 Projeto composto por 4 partes, cada uma com seu próprio README detalhado:
 
 | Pasta | O que é | README |
