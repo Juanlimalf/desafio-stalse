@@ -7,14 +7,14 @@ API em **FastAPI** para o desafio Stalse. Expõe:
 
 ## Stack
 
-- Python 3.14
+- Python 3.13
 - FastAPI + Uvicorn
 - SQLAlchemy assíncrono (`aiosqlite`) — persistência dos tickets em `tickets.db` (SQLite)
 - httpx — chamadas de webhook
 
 ## Pré-requisitos
 
-- Python 3.14 instalado (ver [`.python-version`](.python-version));
+- Python 3.13 instalado (ver [`.python-version`](.python-version));
 - Para as métricas funcionarem, o arquivo `data/processed/metrics.json` precisa existir — ele é gerado pelo ETL em [`data/etl.py`](../data/etl.py).
 
 ## Como executar
