@@ -29,6 +29,29 @@ class TestTicketsService:
 
         assert exc_info.value.status_code == 500
 
+    def test_get_webhook_url_returns_repository_result(self) -> None:
+        self.repository.get_webhook_url.return_value = "https://example.com/webhook"
+
+        result = asyncio.run(self.service.get_webhook_url())
+
+        assert result.url == "https://example.com/webhook"
+
+    def test_get_webhook_url_raises_404_when_not_registered(self) -> None:
+        self.repository.get_webhook_url.return_value = None
+
+        with pytest.raises(HTTPException) as exc_info:
+            asyncio.run(self.service.get_webhook_url())
+
+        assert exc_info.value.status_code == 404
+
+    def test_get_webhook_url_raises_500_on_unexpected_error(self) -> None:
+        self.repository.get_webhook_url.side_effect = Exception("db down")
+
+        with pytest.raises(HTTPException) as exc_info:
+            asyncio.run(self.service.get_webhook_url())
+
+        assert exc_info.value.status_code == 500
+
     def test_get_tickets_returns_repository_result(self, ticket_schema: TicketsSchema) -> None:
         self.repository.get_tickets.return_value = [ticket_schema]
 

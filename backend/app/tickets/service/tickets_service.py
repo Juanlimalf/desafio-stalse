@@ -4,7 +4,7 @@ from fastapi import HTTPException, status
 from app.shared.log.logger import logger
 from app.tickets.exceptions.tickets_not_found import TicketsNotFoundError
 from app.tickets.repository.tickets_repository import TicketsRepository
-from app.tickets.schema.tickets_schema import TicketPriority, TicketsSchema, TicketStatus, TicketUpdateSchema
+from app.tickets.schema.tickets_schema import TicketPriority, TicketsSchema, TicketStatus, TicketUpdateSchema, TicketWebhookUrlSchema
 
 
 class TicketsService:
@@ -20,6 +20,27 @@ class TicketsService:
             )
         except Exception as e:
             logger.exception(f"Error adding webhook URL: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Internal Server Error. Error: {e}",
+            ) from e
+
+    async def get_webhook_url(self) -> TicketWebhookUrlSchema:
+        try:
+            logger.info("Getting webhook URL from repository")
+            url = await self.repository.get_webhook_url()
+
+            if not url:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Webhook URL not found.",
+                )
+
+            return TicketWebhookUrlSchema(url=url)
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.exception(f"Error getting webhook URL: {e}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Internal Server Error. Error: {e}",

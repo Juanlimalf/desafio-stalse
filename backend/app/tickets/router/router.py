@@ -20,6 +20,13 @@ async def create_ticket(payload: TicketWebhookUrlSchema, service: ServiceDep) ->
     )
 
 
+@router.get("/webhook")
+async def get_webhook(service: ServiceDep) -> TicketWebhookUrlSchema:
+    """Retorna a URL do webhook atualmente cadastrada."""
+
+    return await service.get_webhook_url()
+
+
 @router.get("/")
 async def get_all_tickets(service: ServiceDep) -> list[TicketsSchema]:
     """Retorna todos os tickets cadastrados."""
