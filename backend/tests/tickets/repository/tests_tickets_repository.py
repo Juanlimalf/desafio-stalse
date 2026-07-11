@@ -1,12 +1,15 @@
 import asyncio
 from collections.abc import Callable
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+from app.shared.db.config import Base
 from app.tickets.exceptions.tickets_not_found import TicketsNotFoundError
+from app.tickets.model.tickets_model import TicketsModel
 from app.tickets.repository.tickets_repository import TicketsRepository
 from app.tickets.schema.tickets_schema import TicketChannel, TicketPriority, TicketStatus, TicketUpdateSchema
 
@@ -80,6 +83,40 @@ class TestTicketsRepository:
         compiled = str(stmt.compile(compile_kwargs={"literal_binds": True}))
         assert "priority" in compiled
         assert TicketPriority.HIGH.value in compiled
+
+    def test_get_tickets_filters_by_customer_name_ignoring_case(self) -> None:
+        async def _run(search_term: str) -> list:
+            engine = create_async_engine("sqlite+aiosqlite:///:memory:")
+
+            async with engine.begin() as conn:
+                await conn.run_sync(Base.metadata.create_all)
+
+            session_factory = async_sessionmaker(engine, expire_on_commit=False)
+
+            async with session_factory() as session:
+                session.add(
+                    TicketsModel(
+                        created_at=datetime(2026, 1, 1, tzinfo=UTC),
+                        customer_name="Jane Doe",
+                        channel=TicketChannel.EMAIL,
+                        subject="Ticket subject",
+                        status=TicketStatus.OPENED,
+                        priority=TicketPriority.LOW,
+                    )
+                )
+                await session.commit()
+
+                result = await TicketsRepository(session=session).get_tickets(customer_name=search_term)
+
+            await engine.dispose()
+
+            return result
+
+        for search_term in ("JANE", "jane", "jAnE doe"):
+            result = asyncio.run(_run(search_term))
+
+            assert len(result) == 1
+            assert result[0].customer_name == "Jane Doe"
 
     def test_get_ticket_by_id_returns_schema_when_found(
         self, ticket_row: SimpleNamespace, execute_result_factory: Callable[..., MagicMock]

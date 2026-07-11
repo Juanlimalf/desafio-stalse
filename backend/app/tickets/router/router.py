@@ -14,7 +14,7 @@ from app.tickets.schema.tickets_schema import (
 router = APIRouter(prefix="/tickets", tags=["Tickets"])
 
 
-@router.post("/webhook")
+@router.post("/webhook/")
 async def create_ticket(payload: TicketWebhookUrlSchema, service: ServiceDep) -> SuccessResponseSchema:
     """Recebe a URL do webhook que será chamada quando o status do ticket for
     alterado para 'opened' ou quando a prioridade for alterada para 'high'."""
@@ -28,7 +28,7 @@ async def create_ticket(payload: TicketWebhookUrlSchema, service: ServiceDep) ->
     )
 
 
-@router.get("/webhook")
+@router.get("/webhook/")
 async def get_webhook(service: ServiceDep) -> TicketWebhookUrlSchema:
     """Retorna a URL do webhook atualmente cadastrada."""
 
@@ -53,18 +53,18 @@ async def get_all_tickets(
     )
 
 
-@router.get("/{ticket_id}")
+@router.get("/{ticket_id}/")
 async def get_ticket_by_id(ticket_id: int, service: ServiceDep) -> TicketsSchema:
     """Retorna um ticket específico pelo ID."""
 
-    return await service.get_ticket_by_id(ticket_id)
+    return await service.get_ticket_by_id(ticket_id=ticket_id)
 
 
-@router.patch("/{ticket_id}")
+@router.patch("/{ticket_id}/")
 async def update_ticket(ticket_id: int, payload: TicketUpdateSchema, service: ServiceDep) -> TicketsSchema | SuccessResponseSchema:
     """Atualiza o status e/ou a prioridade de um ticket existente."""
 
     return await service.update_ticket(
-        ticket_id,
-        payload,
+        ticket_id=ticket_id,
+        data=payload,
     )
