@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.tickets.exceptions.tickets_not_found import TicketsNotFoundError
 from app.tickets.repository.tickets_repository import TicketsRepository
-from app.tickets.schema.tickets_schema import TicketUpdateSchema
+from app.tickets.schema.tickets_schema import TicketChannel, TicketPriority, TicketStatus, TicketUpdateSchema
 
 
 class TestTicketsRepository:
@@ -32,6 +32,54 @@ class TestTicketsRepository:
         result = asyncio.run(self.repository.get_tickets())
 
         assert result == []
+
+    def test_get_tickets_without_filters_has_no_where_clause(self, execute_result_factory: Callable[..., MagicMock]) -> None:
+        self.session.execute.return_value = execute_result_factory(all_result=[])
+
+        asyncio.run(self.repository.get_tickets())
+
+        stmt = self.session.execute.call_args.args[0]
+        assert stmt.whereclause is None
+
+    def test_get_tickets_filters_by_customer_name(self, execute_result_factory: Callable[..., MagicMock]) -> None:
+        self.session.execute.return_value = execute_result_factory(all_result=[])
+
+        asyncio.run(self.repository.get_tickets(customer_name="Jane"))
+
+        stmt = self.session.execute.call_args.args[0]
+        compiled = str(stmt.compile(compile_kwargs={"literal_binds": True}))
+        assert "customer_name" in compiled
+        assert "Jane" in compiled
+
+    def test_get_tickets_filters_by_channel(self, execute_result_factory: Callable[..., MagicMock]) -> None:
+        self.session.execute.return_value = execute_result_factory(all_result=[])
+
+        asyncio.run(self.repository.get_tickets(channel=TicketChannel.EMAIL))
+
+        stmt = self.session.execute.call_args.args[0]
+        compiled = str(stmt.compile(compile_kwargs={"literal_binds": True}))
+        assert "channel" in compiled
+        assert TicketChannel.EMAIL.value in compiled
+
+    def test_get_tickets_filters_by_status(self, execute_result_factory: Callable[..., MagicMock]) -> None:
+        self.session.execute.return_value = execute_result_factory(all_result=[])
+
+        asyncio.run(self.repository.get_tickets(status=TicketStatus.CLOSED))
+
+        stmt = self.session.execute.call_args.args[0]
+        compiled = str(stmt.compile(compile_kwargs={"literal_binds": True}))
+        assert "status" in compiled
+        assert TicketStatus.CLOSED.value in compiled
+
+    def test_get_tickets_filters_by_priority(self, execute_result_factory: Callable[..., MagicMock]) -> None:
+        self.session.execute.return_value = execute_result_factory(all_result=[])
+
+        asyncio.run(self.repository.get_tickets(priority=TicketPriority.HIGH))
+
+        stmt = self.session.execute.call_args.args[0]
+        compiled = str(stmt.compile(compile_kwargs={"literal_binds": True}))
+        assert "priority" in compiled
+        assert TicketPriority.HIGH.value in compiled
 
     def test_get_ticket_by_id_returns_schema_when_found(
         self, ticket_row: SimpleNamespace, execute_result_factory: Callable[..., MagicMock]

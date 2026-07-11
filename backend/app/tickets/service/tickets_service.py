@@ -4,7 +4,7 @@ from fastapi import HTTPException, status
 from app.shared.log.logger import logger
 from app.tickets.exceptions.tickets_not_found import TicketsNotFoundError
 from app.tickets.repository.tickets_repository import TicketsRepository
-from app.tickets.schema.tickets_schema import TicketPriority, TicketsSchema, TicketStatus, TicketUpdateSchema, TicketWebhookUrlSchema
+from app.tickets.schema.tickets_schema import TicketChannel, TicketPriority, TicketsSchema, TicketStatus, TicketUpdateSchema, TicketWebhookUrlSchema
 
 
 class TicketsService:
@@ -46,10 +46,21 @@ class TicketsService:
                 detail=f"Internal Server Error. Error: {e}",
             ) from e
 
-    async def get_tickets(self) -> list[TicketsSchema]:
+    async def get_tickets(
+        self,
+        customer_name: str | None = None,
+        channel: TicketChannel | None = None,
+        status: TicketStatus | None = None,
+        priority: TicketPriority | None = None,
+    ) -> list[TicketsSchema]:
         logger.info("Getting tickets from repository")
 
-        return await self.repository.get_tickets()
+        return await self.repository.get_tickets(
+            customer_name=customer_name,
+            channel=channel,
+            status=status,
+            priority=priority,
+        )
 
     async def update_ticket(self, ticket_id: int, data: TicketUpdateSchema) -> TicketsSchema:
         try:

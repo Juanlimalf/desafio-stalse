@@ -1,7 +1,15 @@
 from fastapi import APIRouter
 
 from app.tickets.router.dependencies import ServiceDep
-from app.tickets.schema.tickets_schema import SuccessResponseSchema, TicketsSchema, TicketUpdateSchema, TicketWebhookUrlSchema
+from app.tickets.schema.tickets_schema import (
+    SuccessResponseSchema,
+    TicketChannel,
+    TicketPriority,
+    TicketsSchema,
+    TicketStatus,
+    TicketUpdateSchema,
+    TicketWebhookUrlSchema,
+)
 
 router = APIRouter(prefix="/tickets", tags=["Tickets"])
 
@@ -28,10 +36,21 @@ async def get_webhook(service: ServiceDep) -> TicketWebhookUrlSchema:
 
 
 @router.get("/")
-async def get_all_tickets(service: ServiceDep) -> list[TicketsSchema]:
-    """Retorna todos os tickets cadastrados."""
+async def get_all_tickets(
+    service: ServiceDep,
+    customer_name: str | None = None,
+    channel: TicketChannel | None = None,
+    status: TicketStatus | None = None,
+    priority: TicketPriority | None = None,
+) -> list[TicketsSchema]:
+    """Retorna todos os tickets cadastrados, podendo ser filtrados por customer_name, channel, status e priority."""
 
-    return await service.get_tickets()
+    return await service.get_tickets(
+        customer_name=customer_name,
+        channel=channel,
+        status=status,
+        priority=priority,
+    )
 
 
 @router.patch("/{ticket_id}")

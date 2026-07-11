@@ -79,7 +79,7 @@ pytest
 |--------|-----------------------|-----------|
 | `POST` | `/tickets/webhook`     | Registra a URL que será chamada sempre que um ticket for atualizado com status `closed` ou prioridade `high`. |
 | `GET`  | `/tickets/webhook`     | Retorna a URL do webhook atualmente cadastrada. Retorna `404` se nenhuma URL tiver sido registrada. |
-| `GET`  | `/tickets/`            | Retorna todos os tickets cadastrados. |
+| `GET`  | `/tickets/`            | Retorna todos os tickets cadastrados. Aceita os query params opcionais `customer_name` (busca parcial, case-insensitive), `channel`, `status` e `priority` para filtrar o resultado. |
 | `PATCH`| `/tickets/{ticket_id}` | Atualiza `status` e/ou `priority` de um ticket. Se o resultado disparar a condição de notificação, o webhook cadastrado é chamado com os dados do ticket. |
 
 Campos de ticket: `ticket_id`, `created_at`, `customer_name`, `channel` (`whatsapp`, `email`, `chat`, `telefone`, `instagram`), `subject`, `status` (`opened`, `closed`), `priority` (`low`, `medium`, `high`).

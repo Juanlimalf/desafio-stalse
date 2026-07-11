@@ -3,15 +3,33 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.tickets.exceptions.tickets_not_found import TicketsNotFoundError
 from app.tickets.model.tickets_model import TicketsModel, WebhookModel
-from app.tickets.schema.tickets_schema import TicketsSchema, TicketUpdateSchema
+from app.tickets.schema.tickets_schema import TicketChannel, TicketPriority, TicketsSchema, TicketStatus, TicketUpdateSchema
 
 
 class TicketsRepository:
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
-    async def get_tickets(self) -> list[TicketsSchema]:
+    async def get_tickets(
+        self,
+        customer_name: str | None = None,
+        channel: TicketChannel | None = None,
+        status: TicketStatus | None = None,
+        priority: TicketPriority | None = None,
+    ) -> list[TicketsSchema]:
         stmt = select(TicketsModel)
+
+        if customer_name is not None:
+            stmt = stmt.where(TicketsModel.customer_name.ilike(f"%{customer_name}%"))
+
+        if channel is not None:
+            stmt = stmt.where(TicketsModel.channel == channel)
+
+        if status is not None:
+            stmt = stmt.where(TicketsModel.status == status)
+
+        if priority is not None:
+            stmt = stmt.where(TicketsModel.priority == priority)
 
         result = (await self.session.execute(stmt)).scalars().all()
 

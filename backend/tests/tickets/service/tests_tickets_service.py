@@ -6,7 +6,7 @@ from fastapi import HTTPException
 
 from app.tickets.exceptions.tickets_not_found import TicketsNotFoundError
 from app.tickets.repository.tickets_repository import TicketsRepository
-from app.tickets.schema.tickets_schema import TicketPriority, TicketsSchema, TicketStatus, TicketUpdateSchema
+from app.tickets.schema.tickets_schema import TicketChannel, TicketPriority, TicketsSchema, TicketStatus, TicketUpdateSchema
 from app.tickets.service.tickets_service import TicketsService
 
 
@@ -65,6 +65,26 @@ class TestTicketsService:
         result = asyncio.run(self.service.get_tickets())
 
         assert result == []
+
+    def test_get_tickets_passes_filters_to_repository(self, ticket_schema: TicketsSchema) -> None:
+        self.repository.get_tickets.return_value = [ticket_schema]
+
+        result = asyncio.run(
+            self.service.get_tickets(
+                customer_name="Jane",
+                channel=TicketChannel.EMAIL,
+                status=TicketStatus.OPENED,
+                priority=TicketPriority.LOW,
+            )
+        )
+
+        assert result == [ticket_schema]
+        self.repository.get_tickets.assert_awaited_once_with(
+            customer_name="Jane",
+            channel=TicketChannel.EMAIL,
+            status=TicketStatus.OPENED,
+            priority=TicketPriority.LOW,
+        )
 
     def test_update_ticket_skips_webhook_when_not_closed_or_high(
         self, ticket_schema: TicketsSchema, ticket_update_data: TicketUpdateSchema
