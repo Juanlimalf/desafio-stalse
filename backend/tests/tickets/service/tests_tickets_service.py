@@ -86,6 +86,29 @@ class TestTicketsService:
             priority=TicketPriority.LOW,
         )
 
+    def test_get_ticket_by_id_returns_repository_result(self, ticket_schema: TicketsSchema) -> None:
+        self.repository.get_ticket_by_id.return_value = ticket_schema
+
+        result = asyncio.run(self.service.get_ticket_by_id(1))
+
+        assert result == ticket_schema
+
+    def test_get_ticket_by_id_raises_404_when_not_found(self) -> None:
+        self.repository.get_ticket_by_id.return_value = None
+
+        with pytest.raises(HTTPException) as exc_info:
+            asyncio.run(self.service.get_ticket_by_id(999))
+
+        assert exc_info.value.status_code == 404
+
+    def test_get_ticket_by_id_raises_500_on_unexpected_error(self) -> None:
+        self.repository.get_ticket_by_id.side_effect = Exception("boom")
+
+        with pytest.raises(HTTPException) as exc_info:
+            asyncio.run(self.service.get_ticket_by_id(1))
+
+        assert exc_info.value.status_code == 500
+
     def test_update_ticket_skips_webhook_when_not_closed_or_high(
         self, ticket_schema: TicketsSchema, ticket_update_data: TicketUpdateSchema
     ) -> None:

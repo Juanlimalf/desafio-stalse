@@ -53,6 +53,13 @@ async def get_all_tickets(
     )
 
 
+@router.get("/{ticket_id}")
+async def get_ticket_by_id(ticket_id: int, service: ServiceDep) -> TicketsSchema:
+    """Retorna um ticket específico pelo ID."""
+
+    return await service.get_ticket_by_id(ticket_id)
+
+
 @router.patch("/{ticket_id}")
 async def update_ticket(ticket_id: int, payload: TicketUpdateSchema, service: ServiceDep) -> TicketsSchema | SuccessResponseSchema:
     """Atualiza o status e/ou a prioridade de um ticket existente."""

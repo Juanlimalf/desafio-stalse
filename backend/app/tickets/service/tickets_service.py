@@ -62,6 +62,30 @@ class TicketsService:
             priority=priority,
         )
 
+    async def get_ticket_by_id(self, ticket_id: int) -> TicketsSchema:
+        try:
+            logger.info(f"Getting ticket with ID: {ticket_id}")
+
+            ticket = await self.repository.get_ticket_by_id(ticket_id=ticket_id)
+
+            if not ticket:
+                raise TicketsNotFoundError(ticket_id=ticket_id)
+
+            return ticket
+        except TicketsNotFoundError as e:
+            logger.error(f"Ticket not found: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Ticket with ID {ticket_id} not found.",
+            ) from e
+
+        except Exception as e:
+            logger.exception(f"Error getting ticket: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Internal Server Error. Error: {e}",
+            ) from e
+
     async def update_ticket(self, ticket_id: int, data: TicketUpdateSchema) -> TicketsSchema:
         try:
             logger.info(f"Updating ticket with ID: {ticket_id}")
